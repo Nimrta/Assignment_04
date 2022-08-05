@@ -43,9 +43,63 @@ namespace Nimrta_Assignment4
 
 
         }
-        
 
-    
+        [Test]
+        public void TestValidData()
+        {
+            string URL = driver.Url;
+            Assert.AreEqual(URL, "http://localhost/prog8170a04/getQuote.html");
+            Thread.Sleep(1500);
+
+            //Arrange
+
+            firstName = "TestFName";
+            lastName = "TestLName";
+            address = "123 Street test";
+            city = "Test City";
+            postalCode = "A1A 1A1";
+            phone = "111-111-1111";
+            emailAddress = "test@gmail.com";
+            age = "25";
+            experience = "3";
+            accidents = "0";
+
+            //Act
+            EnterInformation();
+
+            //Assert
+            URL = driver.Url;
+            Assert.AreEqual(URL, "http://localhost/prog8170a04/viewQuote.html?1");
+            Thread.Sleep(2000);
+
+        }
+
+        public void EnterInformation()
+        {
+            driver.FindElement(By.Id("firstName")).SendKeys(firstName);
+            driver.FindElement(By.Id("lastName")).SendKeys(lastName);
+            driver.FindElement(By.Id("address")).SendKeys(address);
+            driver.FindElement(By.Id("city")).SendKeys(city);
+
+            IWebElement provinceElement = driver.FindElement(By.Id("province"));
+
+            SelectElement dropdown = new SelectElement(provinceElement);
+            dropdown.SelectByText("NL");
+
+            driver.FindElement(By.Id("postalCode")).SendKeys(postalCode);
+            driver.FindElement(By.Id("phone")).SendKeys(phone);
+            driver.FindElement(By.Id("email")).SendKeys(emailAddress);
+
+            driver.FindElement(By.Id("age")).SendKeys(age);
+            driver.FindElement(By.Id("experience")).SendKeys(experience);
+            driver.FindElement(By.Id("accidents")).SendKeys(accidents);
+
+            Thread.Sleep(2000);
+
+            driver.FindElement(By.Id("btnSubmit")).Click();
+
+        }
+
         [TearDown]
         public void TearDown()
         {
