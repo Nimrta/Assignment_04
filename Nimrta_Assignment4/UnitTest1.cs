@@ -531,7 +531,6 @@ namespace Nimrta_Assignment4
             Thread.Sleep(2000);
         }
 
-
         [Test]
         public void TestCustomerDrivingInformationOmitted()
         {
